@@ -28,3 +28,12 @@ char* read_file_to_string(char* path) {
     fclose(f);
     return buf;
 }
+
+
+char* copy_str(char* s) {
+    // Length of the string + 1 for '\0'
+    size_t len = strlen(s) + 1;
+
+    char* new_s = malloc(len);
+    strncpy(new_s, s, len);
+}

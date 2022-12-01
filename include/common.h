@@ -12,3 +12,9 @@
 /// @param path Path to the file
 /// @return File contents as string
 char* read_file_to_string(char* path);
+
+
+/// @brief Copies the supplied string to a new string
+/// @param s Old string
+/// @return Newly allocated string
+char* copy_str(char* s);
