@@ -1,2 +1,4 @@
 # Advent of Code 2022
-In C!
+In C!  
+
+> :warning: **WARNING**: Highly inefficient code
