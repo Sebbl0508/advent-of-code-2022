@@ -1,28 +1,24 @@
-#include "common.h"
+#include "day_1.h"
 
-int compare_u32(const void* in_a, const void* in_b) {
-    uint32_t a = *((uint32_t*)in_a);
-    uint32_t b = *((uint32_t*)in_b);
-    if(a == b) return 0;
-    else if(a < b) return -1;
-    else return 1;
-}
 
-bool pt1(char** f);
 
-bool day01() {
+
+static bool pt1_2(char** f);
+
+bool day01(void) {
     char* file = read_file_to_string("./inputs/day01.txt");
+    bool ret = EXIT_SUCCESS;
 
     char* file_orig = file;
-    pt1(&file);
+    if(pt1_2(&file))
+        ret = EXIT_FAILURE;
+
     free(file_orig);
-
-
     printf("\n");
-    return EXIT_SUCCESS;
+    return ret;
 }
 
-bool pt1(char** f) {
+static bool pt1_2(char** f) {
     char* line = strsep(f, "\n");
 
     size_t totals_cnt = 0;

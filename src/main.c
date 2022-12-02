@@ -11,6 +11,7 @@ int main(void) {
     printf("[*] Hello Advent!\n");
 
     CHECK_DAY(day01);
+    CHECK_DAY(day02);
 
     return EXIT_SUCCESS;
 }

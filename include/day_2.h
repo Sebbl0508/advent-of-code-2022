@@ -2,4 +2,4 @@
 
 #include "common.h"
 
-bool day01(void);
+bool day02(void);

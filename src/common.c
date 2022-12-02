@@ -36,4 +36,14 @@ char* copy_str(char* s) {
 
     char* new_s = malloc(len);
     strncpy(new_s, s, len);
+
+    return new_s;
+}
+
+int compare_u32(const void* in_a, const void* in_b) {
+    uint32_t a = *((uint32_t*)in_a);
+    uint32_t b = *((uint32_t*)in_b);
+    if(a == b) return 0;
+    else if(a < b) return -1;
+    else return 1;
 }

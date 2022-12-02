@@ -18,3 +18,9 @@ char* read_file_to_string(char* path);
 /// @param s Old string
 /// @return Newly allocated string
 char* copy_str(char* s);
+
+
+/// @brief Comparison function for `qsort`
+/// @param in_a uint32_t pointer
+/// @param in_b uint32_t pointer
+int compare_u32(const void* in_a, const void* in_b);
