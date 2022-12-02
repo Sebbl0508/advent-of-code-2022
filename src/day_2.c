@@ -85,6 +85,7 @@ static char get_correct_shape(char opponent, char outcome) {
 
         default:
             fprintf(stderr, "[!] Something went wrong (%c)\n", outcome);
+            exit(EXIT_FAILURE);
     }
 }
 
