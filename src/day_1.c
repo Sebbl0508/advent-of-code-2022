@@ -51,5 +51,7 @@ static bool pt1_2(char** f) {
         totals[totals_cnt-3]
     );
 
+    free(totals);
+
     return EXIT_SUCCESS;
 }
