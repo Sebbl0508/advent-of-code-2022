@@ -30,7 +30,7 @@ static bool pt1_2(char** f) {
         if(strcmp(line, "") == 0) {
             // Next elf
             totals_cnt += 1;
-            totals = reallocarray(totals, totals_cnt, sizeof(uint32_t));
+            totals = realloc(totals, totals_cnt * sizeof(uint32_t));
             totals[totals_cnt-1] = cnt;
             cnt = 0;
         }

@@ -47,3 +47,17 @@ int compare_u32(const void* in_a, const void* in_b) {
     else if(a < b) return -1;
     else return 1;
 }
+
+
+#ifndef HAVE_STRSEP
+char* strsep(char** sp, char* sep) {
+    char* p;
+    char* s;
+    if (sp == NULL || *sp == NULL || **sp == '\0') return(NULL);
+    s = *sp;
+    p = s + strcspn(s, sep);
+    if (*p != '\0') *p++ = '\0';
+    *sp = p;
+    return s;
+}
+#endif
