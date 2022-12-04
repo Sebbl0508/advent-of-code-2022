@@ -7,6 +7,9 @@
 #include <string.h>
 
 
+#define MAX(a,b) (((a)>(b))?(a):(b))
+#define MIN(a,b) (((a)<(b))?(a):(b))
+
 /// @brief Reads the file at the supplied path to a string.
 /// @warning This function crashes on all errors
 /// @param path Path to the file
