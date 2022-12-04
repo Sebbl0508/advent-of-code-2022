@@ -26,6 +26,6 @@ char* copy_str(char* s);
 int compare_u32(const void* in_a, const void* in_b);
 
 
-#ifndef HAVE_STRSEP
+#ifndef __USE_MISC
 char * strsep(char **sp, char *sep);
 #endif
