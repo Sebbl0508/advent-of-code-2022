@@ -9,12 +9,14 @@ bool day03(void) {
     char* file = read_file_to_string("./inputs/day03.txt");
 
     char* file_pt1 = copy_str(file);
+    char* file_pt1_orig = file_pt1;
     pt1(&file_pt1);
-    free(file_pt1);
+    free(file_pt1_orig);
 
     char* file_pt2 = copy_str(file);
+    char* file_pt2_orig = file_pt2;
     pt2(&file_pt2);
-    free(file_pt2);
+    free(file_pt2_orig);
 
     free(file);
 
