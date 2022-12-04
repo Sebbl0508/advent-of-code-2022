@@ -12,6 +12,8 @@ bool day02(void) {
     pt1_2(&file);
 
     free(orig);
+
+    printf("\n");
     return EXIT_SUCCESS;
 }
 

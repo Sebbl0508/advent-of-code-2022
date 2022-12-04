@@ -1,16 +1,24 @@
 #include "day_3.h"
 
 static bool pt1(char** f);
+static bool pt2(char** f);
 static uint32_t get_prio(char item);
 static bool string_contains_char(char* string, size_t len, char c);
 
 bool day03(void) {
     char* file = read_file_to_string("./inputs/day03.txt");
-    char* orig = file;
 
-    pt1(&file);
+    char* file_pt1 = copy_str(file);
+    pt1(&file_pt1);
+    free(file_pt1);
 
-    free(orig);
+    char* file_pt2 = copy_str(file);
+    pt2(&file_pt2);
+    free(file_pt2);
+
+    free(file);
+
+    printf("\n");
     return EXIT_SUCCESS;
 }
 
@@ -46,6 +54,39 @@ double_found:
     }
 
     printf("[*] (D03-1) Sum of priorities: %d\n", total);
+}
+
+static bool pt2(char** f) {
+    char* line = strsep(f, "\n");
+
+    uint32_t total = 0;
+
+    while(line != NULL) {
+        char* elve_group[3] = {0};
+
+        elve_group[0] = line;
+        elve_group[1] = strsep(f, "\n");
+        elve_group[2] = strsep(f, "\n");
+
+        size_t llen1 = strlen(elve_group[0]);
+        size_t llen2 = strlen(elve_group[1]);
+        size_t llen3 = strlen(elve_group[2]);
+
+        // Iterate over every character in the first line
+        for(size_t i = 0; i < llen1; i++) {
+            char cur_char = elve_group[0][i];
+
+            if(string_contains_char(elve_group[1], llen2, cur_char) && string_contains_char(elve_group[2], llen3, cur_char)) {
+                total += get_prio(cur_char);
+                goto next_group;
+            }
+        }
+        
+next_group:
+        line = strsep(f, "\n");
+    }
+
+    printf("[*] (D03-2) Sum of priorities: %d\n", total);
 }
 
 static uint32_t get_prio(char item) {
