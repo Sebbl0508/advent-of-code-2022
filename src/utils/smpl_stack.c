@@ -23,12 +23,15 @@ void sstack_push(SStack* stack, void* item) {
     //          to allow 2 more items after the push
     if(new_size_needed > stack->capacity) {
         size_t additional_space = (stack->len / 2) * stack->item_size;
+        if(additional_space < stack->item_size)
+            additional_space = stack->item_size;
+
         stack->start = realloc(stack->start, stack->capacity + additional_space);
         stack->capacity += additional_space;
     }
 
     // Calculate the slot where the new item will be copied to
-    void* new_item_dest = stack->start + ((stack->len + 1) * stack->item_size);
+    void* new_item_dest = stack->start + (stack->len * stack->item_size);
 
     // Copy the item into the slot and increase the stack length
     memcpy(new_item_dest, item, stack->item_size);
