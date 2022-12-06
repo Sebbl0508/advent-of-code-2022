@@ -26,6 +26,8 @@ bool day05(void) {
     }
 
     free(file);
+
+    printf("\n");
     return EXIT_SUCCESS;
 }
 
