@@ -3,6 +3,10 @@
 
 char* read_file_to_string(char* path) {
     FILE* f = fopen(path, "r");
+    if(f == NULL) {
+        fprintf(stderr, "[!] Couldn't open file '%s'\n", path);
+        exit(EXIT_FAILURE);
+    }
 
     // seek to the end of the file to
     // figure out the length and then rewind it
