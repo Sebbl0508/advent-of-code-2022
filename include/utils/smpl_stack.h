@@ -11,12 +11,12 @@
  * This is probably not the best solution
  * for a variable-sized-items stack,
  * but whatever ¯\_(ツ)_/¯
+ *
+ * This stack will never automatically shrink.
+ * To do so, use the 'sstack_shrink_to_fit' function
  */
 
 typedef struct SStack {
-    /// Index to the top of the stack.
-    size_t top;
-
     /// The size of one item in the stack
     size_t item_size;
 
@@ -34,7 +34,7 @@ typedef struct SStack {
 
 /// @brief Create a stack
 /// @param item_size Size of the to-be-inserted items in bytes: 'sizeof(type)'
-/// @param capacity Pre-defined capacity of the stack in bytes, can be 0
+/// @param capacity Pre-defined capacity of the stack in number of elements, can be 0
 /// @return The stack object
 SStack sstack_create(size_t item_size, size_t capacity);
 
@@ -43,6 +43,10 @@ SStack sstack_create(size_t item_size, size_t capacity);
 /// @param item A pointer to a item, which will be copied to the stack.
 /// The item has to be exactly the item size specified when creating the stack
 void sstack_push(SStack* stack, void* item);
+
+/// @brief Shrinks the allocated capacity to the actual length
+/// @param stack The Stack object returned from 'sstack_create'
+void sstack_shrink_to_fit(SStack* stack);
 
 /// @brief Pops the item at the top of the stack
 /// @param stack The Stack object returned from 'sstack_create'
