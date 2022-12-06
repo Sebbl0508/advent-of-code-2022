@@ -4,7 +4,7 @@ project(aoc-2022 C CXX)
 
 # Set local include directory and source files
 include_directories(include)
-file(GLOB ${CMAKE_PROJECT_NAME}_SRC src/*.c)
+file(GLOB_RECURSE ${CMAKE_PROJECT_NAME}_SRC src/*.c include/*.h)
 
 # add executable from source files
 add_executable(${CMAKE_PROJECT_NAME} ${${CMAKE_PROJECT_NAME}_SRC})
