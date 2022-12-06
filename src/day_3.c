@@ -1,7 +1,7 @@
 #include "day_3.h"
 
-static bool pt1(char** f);
-static bool pt2(char** f);
+static void pt1(char** f);
+static void pt2(char** f);
 static uint32_t get_prio(char item);
 static bool string_contains_char(char* string, size_t len, char c);
 
@@ -25,7 +25,7 @@ bool day03(void) {
 }
 
 
-static bool pt1(char** f) {
+static void pt1(char** f) {
     char* line = strsep(f, "\n");
 
 
@@ -58,7 +58,7 @@ double_found:
     printf("[*] (D03-1) Sum of priorities: %d\n", total);
 }
 
-static bool pt2(char** f) {
+static void pt2(char** f) {
     char* line = strsep(f, "\n");
 
     uint32_t total = 0;

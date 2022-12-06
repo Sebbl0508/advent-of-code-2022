@@ -23,6 +23,8 @@ size_t characters_until_unique(char* f, size_t marker_len) {
             return i;
         }
     }
+
+    return 0;
 }
 
 bool str_contains_x_unique(const char* s, size_t n) {

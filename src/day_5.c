@@ -160,7 +160,7 @@ void stack_reverse(CargoStack* stack) {
 void stack_move_mul(CargoStack* from, CargoStack* to, size_t n) {
     char* tmp = calloc(n, sizeof(char));
     if(n > from->num_crates) {
-        fprintf(stderr, "[!] Tried taking more crates from a stack than it contains (%dx)\n", n);
+        fprintf(stderr, "[!] Tried taking more crates from a stack than it contains (%ldx)\n", n);
         exit(EXIT_FAILURE);
     }
 
