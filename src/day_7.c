@@ -42,6 +42,8 @@ bool day07(void) {
 
     free(dirs);
     free(file);
+
+    printf("\n");
     return EXIT_SUCCESS;
 }
 

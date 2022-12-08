@@ -52,6 +52,17 @@ int compare_u32(const void* in_a, const void* in_b) {
     else return 1;
 }
 
+size_t count_lines(const char* s) {
+    size_t len = strlen(s);
+    size_t newlines = 1;
+    for(size_t i = 0; i < len; i++) {
+        if(s[i] == '\n')
+            newlines += 1;
+    }
+
+    return newlines;
+}
+
 
 #ifndef __USE_MISC
 char* strsep(char** sp, char* sep) {
