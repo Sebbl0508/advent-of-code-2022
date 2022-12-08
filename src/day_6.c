@@ -1,7 +1,7 @@
 #include "day_6.h"
 
-size_t characters_until_unique(char* f, size_t marker_len);
-bool str_contains_x_unique(const char* s, size_t n);
+static size_t characters_until_unique(char* f, size_t marker_len);
+static bool str_contains_x_unique(const char* s, size_t n);
 
 bool day06(void) {
     char* file = read_file_to_string("./inputs/day06.txt");
@@ -17,7 +17,7 @@ bool day06(void) {
     return EXIT_SUCCESS;
 }
 
-size_t characters_until_unique(char* f, size_t marker_len) {
+static size_t characters_until_unique(char* f, size_t marker_len) {
     for(size_t i = 0; i < strlen(f); i++) {
         if(str_contains_x_unique(&f[i], marker_len)) {
             return i;
@@ -27,7 +27,7 @@ size_t characters_until_unique(char* f, size_t marker_len) {
     return 0;
 }
 
-bool str_contains_x_unique(const char* s, size_t n) {
+static bool str_contains_x_unique(const char* s, size_t n) {
     for(size_t i = 0; i < n; i++) {
         for(size_t j = i + 1; j < n; j++) {
             if(s[i] == s[j])

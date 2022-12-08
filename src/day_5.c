@@ -6,14 +6,14 @@ typedef struct {
     char* crates;
 } CargoStack;
 
-void stack_move_mul(CargoStack* from, CargoStack* to, size_t n);
-void stack_push_char(CargoStack* stack, char c);
-void stack_reverse(CargoStack* stack);
-char stack_pop_char(CargoStack* stack);
-void stack_free(CargoStack* stack);
+static void stack_move_mul(CargoStack* from, CargoStack* to, size_t n);
+static void stack_push_char(CargoStack* stack, char c);
+static void stack_reverse(CargoStack* stack);
+static char stack_pop_char(CargoStack* stack);
+static void stack_free(CargoStack* stack);
 
-void pt1_2(char** f, uint8_t pt);
-size_t get_num_stacks(char** f);
+static void pt1_2(char** f, uint8_t pt);
+static size_t get_num_stacks(char** f);
 
 bool day05(void) {
     char* file = read_file_to_string("./inputs/day05.txt");
@@ -32,7 +32,7 @@ bool day05(void) {
 }
 
 
-void pt1_2(char** f, uint8_t pt) {
+static void pt1_2(char** f, uint8_t pt) {
     char* line_copy = copy_str(*f);
     char* line = strsep(f, "\n");
 
@@ -98,7 +98,7 @@ void pt1_2(char** f, uint8_t pt) {
 }
 
 
-size_t get_num_stacks(char** f) {
+static size_t get_num_stacks(char** f) {
     char* line = strsep(f, "\n");
 
     long highest_num = 0;
@@ -127,14 +127,14 @@ size_t get_num_stacks(char** f) {
     return (size_t)highest_num;
 }
 
-void stack_push_char(CargoStack* stack, char c) {
+static void stack_push_char(CargoStack* stack, char c) {
     stack->crates = realloc(stack->crates, (stack->num_crates + 1) * sizeof(char));
     stack->crates[stack->num_crates] = c;
 
     stack->num_crates += 1;
 }
 
-char stack_pop_char(CargoStack* stack) {
+static char stack_pop_char(CargoStack* stack) {
     char ret = stack->crates[stack->num_crates-1];
     stack->crates = realloc(stack->crates, (stack->num_crates-1) * sizeof(char));
 
@@ -143,7 +143,7 @@ char stack_pop_char(CargoStack* stack) {
     return ret;
 }
 
-void stack_reverse(CargoStack* stack) {
+static void stack_reverse(CargoStack* stack) {
     size_t start = 0;
     size_t end = stack->num_crates - 1;
 
@@ -157,7 +157,7 @@ void stack_reverse(CargoStack* stack) {
     }
 }
 
-void stack_move_mul(CargoStack* from, CargoStack* to, size_t n) {
+static void stack_move_mul(CargoStack* from, CargoStack* to, size_t n) {
     char* tmp = calloc(n, sizeof(char));
     if(n > from->num_crates) {
         fprintf(stderr, "[!] Tried taking more crates from a stack than it contains (%ldx)\n", n);
@@ -181,7 +181,7 @@ void stack_move_mul(CargoStack* from, CargoStack* to, size_t n) {
     free(tmp);
 }
 
-void stack_free(CargoStack* stack) {
+static void stack_free(CargoStack* stack) {
     free(stack->crates);
     memset(stack, 0, sizeof(CargoStack));
 }
