@@ -9,6 +9,7 @@
 
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define MIN(a,b) (((a)<(b))?(a):(b))
+#define IS_DIGIT(c) (c >= '0' && c <= '9')
 
 /// @brief Reads the file at the supplied path to a string.
 /// @warning This function crashes on all errors
@@ -27,6 +28,7 @@ char* copy_str(char* s);
 /// @param in_a uint32_t pointer
 /// @param in_b uint32_t pointer
 int compare_u32(const void* in_a, const void* in_b);
+
 
 
 #ifndef __USE_MISC
