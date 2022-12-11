@@ -16,7 +16,8 @@ typedef struct {
 
 typedef struct {
     Vec2 head;
-    Vec2 tail;
+    size_t num_knots;
+    Vec2* knots;
 } Rope;
 
 static void pt1(char* f);
@@ -35,6 +36,7 @@ bool day09(void) {
 
     pt1(file);
 
+    free(file);
     printf("\n");
     return EXIT_SUCCESS;
 }
@@ -42,13 +44,27 @@ bool day09(void) {
 static void pt1(char* f) {
     char* line = strsep(&f, "\n");
 
-    // Both head & tail start at (0, 0)
-    Rope rope = {0};
-    Vec2* visited = malloc(sizeof(Vec2));
-    size_t visited_len = 1;
+    // All parts of the rope_p1 start at (0, 0)
+    Rope rope_p1 = {0};
+    rope_p1.num_knots = 1;
+    rope_p1.knots = calloc(rope_p1.num_knots, sizeof(Vec2));
+
+    Vec2* visited_p1 = calloc(1, sizeof(Vec2));
+    size_t visited_len_p1 = 1;
 
     // The tail also visits the starting point
-    visited[0] = (Vec2){ 0, 0 };
+    visited_p1[0] = (Vec2){ 0, 0 };
+
+
+    // Part 2
+    Rope rope_p2 = {0};
+    rope_p2.num_knots = 9;
+    rope_p2.knots = calloc(rope_p2.num_knots, sizeof(Vec2));
+
+    Vec2* visited_p2 = calloc(1, sizeof(Vec2));
+    size_t visited_len_p2 = 1;
+    visited_p2[0] = (Vec2){ 0, 0 };
+
 
     while(line != NULL) {
         if(!IS_DIGIT(line[2])) {
@@ -59,12 +75,19 @@ static void pt1(char* f) {
         MoveDir dir = get_move_dir(line[0]);
         size_t n_steps = strtol(&line[2], NULL, 10);
 
-        move_rope(&rope, dir, n_steps, &visited, &visited_len);
+        move_rope(&rope_p1, dir, n_steps, &visited_p1, &visited_len_p1);
+        move_rope(&rope_p2, dir, n_steps, &visited_p2, &visited_len_p2);
 
         line = strsep(&f, "\n");
     }
 
-    printf("[*] (D09-1) Head is at (%ld, %ld), tail at (%ld, %ld). Tail visited %ld spots\n", rope.head.x, rope.head.y, rope.tail.x, rope.tail.y, visited_len);
+    printf("[*] (D09-1) Visited %ld spots\n", visited_len_p1);
+    printf("[*] (D09-2) Visited %ld spots\n", visited_len_p2);
+
+    free(visited_p1);
+    free(visited_p2);
+    free(rope_p1.knots);
+    free(rope_p2.knots);
 }
 
 static void move_rope(Rope* rope, MoveDir dir, size_t num_steps, Vec2** visited_arr, size_t* visited_arr_len) {
@@ -72,20 +95,22 @@ static void move_rope(Rope* rope, MoveDir dir, size_t num_steps, Vec2** visited_
         // Move head first
         move_point(&rope->head, dir);
 
+        Vec2 prev = rope->head;
+        for(size_t j = 0; j < rope->num_knots; j++) {
+            Vec2 delta = {
+                .x = prev.x - rope->knots[j].x,
+                .y = prev.y - rope->knots[j].y
+            };
 
-        // TODO: The following code for all knots
-        Vec2 delta = {
-            .x = rope->head.x - rope->tail.x,
-            .y = rope->head.y - rope->tail.y
-        };
+            if(llabs(delta.x) > 1 || llabs(delta.y) > 1) {
+                rope->knots[j].x += normalize_i64(delta.x);
+                rope->knots[j].y += normalize_i64(delta.y);
 
-        if(llabs(delta.x) > 1 || llabs(delta.y) > 1) {
-            rope->tail.x += normalize_i64(delta.x);
-            rope->tail.y += normalize_i64(delta.y);
-
-            if(!arr_vec2_contains(*visited_arr, *visited_arr_len, rope->tail)) {
-                *visited_arr = arr_vec2_push(*visited_arr, visited_arr_len, rope->tail);
+                if(j == rope->num_knots-1 && !arr_vec2_contains(*visited_arr, *visited_arr_len, rope->knots[rope->num_knots-1])) {
+                    *visited_arr = arr_vec2_push(*visited_arr, visited_arr_len, rope->knots[rope->num_knots-1]);
+                }
             }
+            prev = rope->knots[j];
         }
     }
 }
