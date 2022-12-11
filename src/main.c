@@ -19,6 +19,7 @@ int main(void) {
     CHECK_DAY(day07);
     CHECK_DAY(day08);
     CHECK_DAY(day09);
+    CHECK_DAY(day10);
 
     return EXIT_SUCCESS;
 }
