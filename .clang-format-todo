@@ -1,0 +1,76 @@
+Language: Cpp
+TabWidth: 4
+UseTab: Never
+
+ColumnLimit: 100
+
+DisableFormat: false
+Standard: c++11
+PointerAlignment: Left
+SpaceAroundPointerQualifiers: Before
+
+UseCRLF: false
+AlignAfterOpenBracket: BlockIndent
+AlignOperands: AlignAfterOperator
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AcrossComments: false
+  AcrossEmptyLines: false
+  AlignCompound: true
+  PadOperators: true
+
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossComments: false
+  AcrossEmptyLines: false
+  AlignCompound: true
+  PadOperators: true
+
+AlignEscapedNewlines: Left
+AlignTrailingComments: true
+AlignArrayOfStructures: Right
+AlignConsecutiveBitFields:
+  Enabled: true
+  AcrossComments: false
+  AcrossEmptyLines: false
+  AlignCompound: true
+  PadOperators: true
+
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossComments: false
+  AcrossEmptyLines: false
+  AlignCompound: true
+  PadOperators: true
+
+AllowShortBlocksOnASingleLine: Always
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: true
+
+
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterExternBlock: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeWhile: false
+  BeforeLambdaBody: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyNamespace: false
+  SplitEmptyRecord: false
+
+IndentCaseLabels: true
+SpaceBeforeCaseColon: false
+
+QualifierAlignment: Left
+ReferenceAlignment: Left
