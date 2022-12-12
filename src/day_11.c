@@ -16,12 +16,12 @@ typedef enum {
 typedef struct {
     OpSign sign;
     bool old_val;
-    int64_t num;
+    uint64_t num;
 } Operation;
 
 typedef struct {
     size_t num_items;
-    int64_t* items;
+    uint64_t* items;
     size_t divisible_by;
     size_t true_idx;
     size_t false_idx;
@@ -34,7 +34,7 @@ static void pt1(char* f);
 // Takes the first 'Monkey X' definition line and returns the pointer at the end
 static Monkey parse_monkey(char** f);
 static void destroy_monkey(Monkey* m);
-static int64_t* parse_starting_items(char* s, size_t* len);
+static uint64_t* parse_starting_items(char* s, size_t* len);
 static Operation parse_op(char const* op_begin);
 static void inspect_item(Monkey* m);
 static void throw_item(Monkey* from, Monkey* to);
@@ -72,8 +72,13 @@ static void pt1(char* f) {
         line = strsep(&f, "\n");
     }
 
+    uint64_t prod = 1;
+    for(uint64_t i = 0; i < monkey_num; i++) {
+        prod *= monkeys[i].divisible_by;
+    }
+
     // Adjust for part1/2
-    const size_t rounds = 20;
+    const size_t rounds = 10000;
 
     // Do 20 rounds
     for(size_t round = 0; round < rounds; round++) {
@@ -87,23 +92,24 @@ static void pt1(char* f) {
 
                 // TODO: Debug inspecting & math
                 inspect_item(&monkeys[i]);
-                monkeys[i].items[0] /= 3;
+                monkeys[i].items[0] = monkeys[i].items[0] % prod;
+                //monkeys[i].items[0] /= 3;
 
                 size_t dest_monkey = get_destination_monkey(&monkeys[i]);
                 throw_item(&monkeys[i], &monkeys[dest_monkey]);
             }
         }
-        printf("[*] After round %zu\n", round + 1);
-        print_monkeys(monkeys, monkey_num);
+        //printf("[*] After round %zu\n", round + 1);
+        //print_monkeys(monkeys, monkey_num);
     }
 
-    size_t* inspection_counts = calloc(monkey_num, sizeof(int64_t));
+    size_t* inspection_counts = calloc(monkey_num, sizeof(uint64_t));
     for(size_t i = 0; i < monkey_num; i++) {
         inspection_counts[i] = monkeys[i].inspection_count;
     }
     qsort(inspection_counts, monkey_num, sizeof(size_t), compare_sizet);
 
-    printf("[*] (D11-1) %ld\n", inspection_counts[monkey_num-1] * inspection_counts[monkey_num-2]);
+    printf("[*] (D11-1/2) %ld\n", inspection_counts[monkey_num-1] * inspection_counts[monkey_num-2]);
 
     free(inspection_counts);
     inspection_counts = NULL;
@@ -127,7 +133,7 @@ static void print_monkeys(Monkey* monkeys, size_t n) {
 }
 
 static void inspect_item(Monkey* m) {
-    int64_t right_value;
+    uint64_t right_value;
 
     // if it's old [op] old
     if(m->op.old_val) {
@@ -164,7 +170,7 @@ static size_t get_destination_monkey(Monkey* m) {
 
 // This is very inefficient because it (re)allocs 3 arrays every time an item is thrown
 static void throw_item(Monkey* from, Monkey* to) {
-    int64_t v = from->items[0];
+    uint64_t v = from->items[0];
 
     // Allocates a new array,
     // moves all but the first element of 'from' into the 'buf' array
@@ -184,8 +190,8 @@ static void throw_item(Monkey* from, Monkey* to) {
         from->items = NULL;
         from->num_items -= 1;
     } else {
-        int64_t* buf = calloc(from->num_items-1, sizeof(int64_t));
-        memmove(buf, &from->items[1], (from->num_items-1) * sizeof(int64_t));
+        uint64_t* buf = calloc(from->num_items-1, sizeof(uint64_t));
+        memmove(buf, &from->items[1], (from->num_items-1) * sizeof(uint64_t));
 
         free(from->items);
         from->items = buf;
@@ -195,7 +201,7 @@ static void throw_item(Monkey* from, Monkey* to) {
     }
 
     // Increase the size of the destination array and push the new item into it
-    to->items = realloc(to->items, (to->num_items + 1) * sizeof(int64_t));
+    to->items = realloc(to->items, (to->num_items + 1) * sizeof(uint64_t));
     to->items[to->num_items] = v;
     to->num_items += 1;
 }
@@ -260,19 +266,19 @@ static Operation parse_op(char const* op_begin) {
     return op;
 }
 
-static int64_t* parse_starting_items(char* s, size_t* len) {
+static uint64_t* parse_starting_items(char* s, size_t* len) {
     char* line = strdup(s);
     char* line_o = line;
 
     char* num = strsep(&line, ",");
 
-    int64_t* x = NULL;
+    uint64_t* x = NULL;
 
     size_t i = 0;
     for(i = 0; num != NULL; i++) {
-        int64_t n = strtol(num, NULL, 10);
+        uint64_t n = strtol(num, NULL, 10);
 
-        x = realloc(x, (i+1) * sizeof(int64_t));
+        x = realloc(x, (i+1) * sizeof(uint64_t));
         x[i] = n;
 
         num = strsep(&line, ",");
