@@ -14,6 +14,7 @@ typedef struct {
     bool* screen;
 } CPU;
 
+
 static void pt1(char* f);
 static Instruction get_instruction(char* line);
 static CPU cpu_init(void);

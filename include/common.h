@@ -30,6 +30,12 @@ char* copy_str(char* s);
 /// @param in_b uint32_t pointer
 int compare_u32(const void* in_a, const void* in_b);
 
+
+/// @brief Comparison function for `qsort`
+/// @param in_a size_t pointer
+/// @param in_b size_t pointer
+int compare_sizet(const void* in_a, const void* in_b);
+
 size_t count_lines(const char* s);
 
 #ifndef __USE_MISC

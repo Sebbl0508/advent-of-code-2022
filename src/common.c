@@ -52,6 +52,14 @@ int compare_u32(const void* in_a, const void* in_b) {
     else return 1;
 }
 
+int compare_sizet(const void* in_a, const void* in_b) {
+    size_t a = *((size_t*)in_a);
+    size_t b = *((size_t*)in_b);
+    if(a == b) return 0;
+    else if(a < b) return -1;
+    else return 1;
+}
+
 size_t count_lines(const char* s) {
     size_t len = strlen(s);
     size_t newlines = 1;
