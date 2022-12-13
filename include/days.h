@@ -11,3 +11,4 @@
 #include "day_9.h"
 #include "day_10.h"
 #include "day_11.h"
+#include "day_12.h"
