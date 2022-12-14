@@ -46,7 +46,13 @@ void* squeue_pop_front(SQueue* q) {
     memcpy(item_cache, q->head->data, q->item_size);
 
     SQueueNode* old_head = q->head;
+    if(q->head == q->tail) {
+        q->tail = NULL;
+    }
+
     q->head = q->head->next;
+    if(q->head != NULL)
+        q->head->prev = NULL;
 
     free(old_head->data);
     free(old_head);
@@ -64,6 +70,10 @@ void squeue_destroy(SQueue* q) {
         free(this_head);
     }
     memset(q, 0, sizeof(SQueue));
+}
+
+bool squeue_is_empty(SQueue* q) {
+    return (q->head == NULL ? true : false);
 }
 
 size_t squeue_length(SQueue* q) {
