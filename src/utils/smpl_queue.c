@@ -17,13 +17,19 @@ void squeue_push(SQueue* q, void* item) {
     next_back_node->data = calloc(1, q->item_size);
     memcpy(next_back_node->data, item, q->item_size);
 
+    if(q->tail == NULL || q->head == NULL) {
+        // This *always* happends ???
+        q->tail = NULL;
+    }
 
     if(q->tail == NULL && q->head == NULL) {
         q->tail = next_back_node;
         q->head = next_back_node;
     } else {
         // The new node's previous is the old tail
-        next_back_node->prev = q->tail;
+        if(q->head != q->tail) {
+            next_back_node->prev = q->tail;
+        }
 
         // The old tail's next node is the new node
         q->tail->next = next_back_node;
